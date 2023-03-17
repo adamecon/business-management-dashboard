@@ -4,15 +4,37 @@ import mongoos from "mongoose";
 import nodmon from "nodemon";
 import cors from "cors";
 import dotenv from "dotenv";
+import morgan from "morgan";
+import salestRoutes from "./routes/sales";
+import clientRoutes from "./routes/client";
+import managementRoutes from "./routes/management";
+import generalRoutes from "./routes/general";
+import mongoose from "mongoose";
 
-const express = require("express");
+dotenv.config();
+
 const app = express();
-const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("hello app");
-});
+app.use(express.json());
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
-app.listen(port, () => {
-  console.log("Hello app");
-});
+app.use("client", clientRoutes);
+app.use("general", generalRoutes);
+app.use("management", managementRoutes);
+app.use("sales", salestRoutes);
+
+const PORT = process.env.PORT || 9000;
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    setNewUrlParser: true,
+    setUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => console.log(`SERVER PORT: ${PORT}`));
+  })
+  .catch((error) => console.log(error));
