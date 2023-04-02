@@ -10,7 +10,7 @@ import {
   ListItemText,
   Typography,
   useTheme,
-} from "@mui/system";
+} from "@mui/material";
 import {
   SettingsOutlined,
   ChevronLeft,
@@ -199,7 +199,7 @@ const Sidebar = ({
               <Box
                 component="img"
                 alt="profile"
-                src={profileImage}
+                //src={profileImage}
                 height="40px"
                 width="40px"
                 borderRadius="50%"

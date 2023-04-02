@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const admin = "admin";
 const UserSchema = new mongoose.Schema(
   {
     name: {
