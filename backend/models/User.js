@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const admin = "admin";
+
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -11,24 +11,24 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-
       max: 50,
       unique: true,
     },
     password: {
       type: String,
       required: true,
-      min: 8,
+      min: 5,
     },
     city: String,
-    county: String,
-    phone: String,
+    state: String,
+    country: String,
     occupation: String,
+    phoneNumber: String,
     transactions: Array,
     role: {
       type: String,
       enum: ["user", "admin", "superadmin"],
-      default: admin,
+      default: "admin",
     },
   },
   { timestamps: true }
